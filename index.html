@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>मराठी स्पीच अ‍ॅप</title>
+</head>
+<body>
+  <h2>बोलायला सुरुवात करा</h2>
+  <button onclick="startRecognition()">बोलायला सुरुवात करा</button>
+  <p id="output">इथे टेक्स्ट दिसेल...</p>
+
+  <script>
+    function startRecognition() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'mr-IN';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        document.getElementById('output').textContent = event.results[0][0].transcript;
+      };
+
+      recognition.onerror = (event) => {
+        document.getElementById('output').textContent = 'त्रुटी: ' + event.error;
+      };
+    }
+  </script>
+</body>
+</html>
